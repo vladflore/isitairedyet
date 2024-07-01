@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://pyscript.net/releases/2024.6.2/core.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" 
+  integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+  <script type="module" src="https://pyscript.net/releases/2024.6.2/core.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+
+    <!-- for splashscreen -->
+    <style>
+      #loading { outline: none; border: none; background: transparent }
+    </style>
+    <script type="module">
+      const loading = document.getElementById('loading');
+      addEventListener('py:ready', () => loading.close());
+      loading.showModal();
+    </script>
+
+<title>isItAiredYet</title>
+
+
+</head>
+
+<body>
+  <dialog id="loading">
+    <h1>Loading...</h1>
+  </dialog>
+
+  <main class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="d-flex flex-column justify-content-center align-items-center w-75">
+
+      <div class="alert alert-info" role="alert">
+        <p id="token-not-expired" class="m-0">
+          You can use this app for <span id="expiration-days" class="text-danger"></span> more day(s). On <span id="expiration-datetime" class="text-danger"></span> (<span id="expiration-tz"></span>) the
+          access token will expire, preventing you from using the application! Do not expect things to work after this date!
+        </p>
+        <p id="token-expired" class="text-danger d-none m-0">It appears that the access token has expired!</p>
+      </div>
+      <py-script src="./alert_message.py"></py-script>
+
+      <input type="text" id="search-input" class="form-control form-control-lg rounded-pill w-50"
+        placeholder="Search TV series">
+      <button id="search-btn" class="btn btn-primary btn-lg rounded-pill my-3"
+        py-click="render_search_series">Search</button>
+
+      <div id="total-results" class="w-100">
+        <p class="text-left d-none">
+          Total results: <span class="fw-bold" id="total-results-count"></span>
+          Continuing: <span class="fw-bold text-success" id="total-continuing-count"></span>
+          Upcoming: <span class="fw-bold text-info" id="total-upcoming-count"></span>
+          Ended: <span class="fw-bold text-danger" id="total-ended-count"></span>
+        </p>
+      </div>
+
+      <div class="w-100">
+        <div id="spinner" class="spinner-border text-dark d-none" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div class="table-responsive w-100" style="height: 600px;">
+        <table class="table table-striped table-hover table-bordered">
+          <thead class="sticky-top text-white bg-dark">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Cover</th>
+              <th scope="col">Status</th>
+              <th scope="col">Next Episode</th>
+              <th scope="col">Last Episode</th>
+            </tr>
+          </thead>
+          <tbody id="series">
+            <tr>
+              <td colspan="5" class="text-center">No series found</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script type="py" src="./web.py" config="./pyscript.json"></script>
+</body>
+
+</html>

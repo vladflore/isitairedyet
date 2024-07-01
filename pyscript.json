@@ -1,0 +1,11 @@
+{
+  "packages": ["pillow"],
+  "files": {
+    "./pyodide_fetch_strategy.py": "",
+    "./common_fetch_strategy.py": "",
+    "./models.py":"",
+    "./utils.py":"",
+    "./settings.py":"",
+    "./settings.dat":""
+  }
+}
