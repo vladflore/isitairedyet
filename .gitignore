@@ -1,7 +1,7 @@
 .vscode
 localvenv
 __pycache__
-settings.dat
+# settings.dat
 .idea
 .mypy_cache
 .pytest_cache
